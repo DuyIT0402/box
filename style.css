@@ -183,6 +183,53 @@ body {
   gap: 14px;
 }
 
+.character-tag-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.praise-bubble {
+  padding: 3px 6px;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  background: rgba(9, 13, 20, 0.92);
+  font-family: var(--font-code);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px) scale(0.9);
+  pointer-events: none;
+  animation: praise-pop 8s ease-in-out infinite;
+}
+
+.boy-praise {
+  color: #7dd3fc;
+}
+
+.girl-praise {
+  color: #f9a8d4;
+  animation-delay: 4s;
+}
+
+@keyframes praise-pop {
+  0%, 12%, 100% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.9);
+  }
+  18%, 38% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  46%, 100% {
+    opacity: 0;
+    transform: translateY(-3px) scale(0.96);
+  }
+}
+
 .name-badge {
   display: inline-flex;
   align-items: center;
@@ -829,6 +876,11 @@ body {
 
   .characters-nametags {
     top: 82px;
+  }
+
+  .praise-bubble {
+    font-size: 7px;
+    padding: 3px 4px;
   }
 
   .scene-hint {
