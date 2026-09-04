@@ -215,6 +215,44 @@ body {
   animation-delay: 4s;
 }
 
+.dog-response {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 6;
+  max-width: 92%;
+  padding: 4px 7px;
+  border: 1px solid #d6b58a;
+  border-radius: 5px;
+  background: rgba(9, 13, 20, 0.94);
+  color: #f6d7a7;
+  font-family: var(--font-code);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px) scale(0.9);
+  animation: dog-response-pop 8s ease-in-out infinite 6s;
+}
+
+@keyframes dog-response-pop {
+  0%, 18%, 100% {
+    opacity: 0;
+    transform: translate(-50%, 4px) scale(0.9);
+  }
+  24%, 42% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -3px) scale(0.96);
+  }
+}
+
 @keyframes praise-pop {
   0%, 12%, 100% {
     opacity: 0;
@@ -881,6 +919,11 @@ body {
   .praise-bubble {
     font-size: 7px;
     padding: 3px 4px;
+  }
+
+  .dog-response {
+    bottom: 25px;
+    font-size: 7px;
   }
 
   .scene-hint {

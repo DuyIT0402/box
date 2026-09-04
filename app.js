@@ -309,6 +309,31 @@ requestAnimationFrame(drawPixelArtScene);
 // ==========================================
 const heartArea = document.getElementById("heart-area");
 const sceneContainer = document.querySelector(".scene-container");
+const boyPraise = document.getElementById("boy-praise");
+const girlPraise = document.getElementById("girl-praise");
+const dogResponse = document.getElementById("dog-response");
+
+const praiseMessages = [
+  ["Mực đáng yêu quá!", "Mực kute quá!"],
+  ["Mực ngoan quá đi!", "Mực dễ thương ghê!"],
+  ["Mực đẹp trai quá!", "Mực chạy vui quá!"],
+  ["Mực là em bé đáng yêu nhất!", "Mực cưng xỉu luôn!"],
+  ["Mực giỏi quá nha!", "Mực làm cả nhà vui quá!"]
+];
+const dogResponses = [
+  "Mực cảm ơn chị Thẻo, anh Duy nha! 💖",
+  "Mực yêu chị Thẻo và anh Duy nhất! 🐶",
+  "Mực sẽ ngoan và chạy thật vui! ✨",
+  "Mực nghe lời khen rồi, vui quá! 💕"
+];
+
+let praiseIndex = 0;
+setInterval(() => {
+  praiseIndex = (praiseIndex + 1) % praiseMessages.length;
+  if (boyPraise) boyPraise.textContent = praiseMessages[praiseIndex][0];
+  if (girlPraise) girlPraise.textContent = praiseMessages[praiseIndex][1];
+  if (dogResponse) dogResponse.textContent = dogResponses[praiseIndex % dogResponses.length];
+}, 8000);
 
 sceneContainer.addEventListener("click", (e) => {
   const rect = sceneContainer.getBoundingClientRect();
