@@ -332,12 +332,12 @@ const praiseMessages = [
   ["Mực giỏi quá nha!", "Mực làm cả nhà vui quá!"]
 ];
 const dogResponses = [
-  "Mực cảm ơn chị Thẻo, anh Duy nha! 💖",
-  "Mực yêu chị Thẻo và anh Duy nhất! 🐶",
+  "Mực cảm ơn chị Thảo, anh Duy nha! 💖",
+  "Mực yêu chị Thảo và anh Duy nhất! 🐶",
   "Mực sẽ ngoan và chạy thật vui! ✨",
   "Mực nghe lời khen rồi, vui quá! 💕",
-  "Dạ Mực cảm ơn anh Duy, chị Thẻo ạ!",
-  "Thank you anh Duy, chị Thẻo! 💖",
+  "Dạ Mực cảm ơn anh Duy, chị Thảo ạ!",
+  "Thank you anh Duy, chị Thảo! 💖",
   "Dạ yêu hai người lắm! 🐶",
   "Mực cảm ơn nhiều nhiều nha! ✨",
   "Thank you, Mực vui quá trời! 💕",
