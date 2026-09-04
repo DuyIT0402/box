@@ -1,0 +1,802 @@
+/* ==========================================================================
+   Retro Pixel Karaoke Theme - Designed with Love
+   ========================================================================== */
+
+:root {
+  --bg-color: #0d1117;
+  --card-bg: #12161f;
+  --terminal-border: #21262d;
+  --text-main: #c9d1d9;
+  --text-dim: #64748b;
+  --accent-blue: #4fa3fc;
+  --accent-green: #38d35d;
+  --accent-pink: #f472b6;
+  --accent-gold: #facc15;
+  --cursor-color: #38bdf8;
+  --font-code: 'Fira Code', monospace;
+  --font-pixel: 'Press Start 2P', cursive;
+  --font-retro: 'VT323', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #080a0f;
+  background-image: 
+    radial-gradient(ellipse at 50% 10%, rgba(30, 58, 138, 0.25) 0%, transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
+  color: var(--text-main);
+  font-family: var(--font-code);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Hiệu ứng CRT nhẹ hoài niệm */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+  background-size: 100% 3px, 3px 100%;
+  z-index: 100;
+  opacity: 0.7;
+}
+
+/* Khung mô phỏng ứng dụng Terminal / Mobile Player */
+.player-wrapper {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card-bg);
+  border: 1px solid #232b38;
+  border-radius: 18px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(79, 163, 252, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+/* Header cửa sổ */
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #0f131a;
+  border-bottom: 1px solid #1c2330;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.btn-dot.close { background: #ef4444; }
+.btn-dot.minimize { background: #f59e0b; }
+.btn-dot.maximize { background: #10b981; }
+
+.terminal-title {
+  font-size: 11px;
+  color: #8b949e;
+  letter-spacing: 0.5px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.15);
+}
+
+.icon-btn.highlight {
+  animation: pulse-heart 2s infinite ease-in-out;
+}
+
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Phần Scene Canvas Pixel */
+.scene-container {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  background: #06090e;
+  border-bottom: 2px solid #1a2232;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#pixel-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.heart-spawn-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Bảng tên pixel Duy & Thẻo trên đầu 2 nhân vật */
+.characters-nametags {
+  position: absolute;
+  top: 96px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+  gap: 14px;
+}
+
+.name-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-family: var(--font-code);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.name-badge:hover {
+  transform: scale(1.15) translateY(-3px) !important;
+}
+
+.boy-badge {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid #38bdf8;
+  color: #7dd3fc;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+  animation: boy-bob 2.4s ease-in-out infinite;
+  transform: translateX(-14px);
+}
+
+.girl-badge {
+  background: rgba(30, 15, 28, 0.85);
+  border: 1.5px solid #f472b6;
+  color: #f9a8d4;
+  box-shadow: 0 0 12px rgba(244, 114, 182, 0.45);
+  animation: girl-bob 2.4s ease-in-out infinite 0.3s;
+  transform: translateX(14px);
+}
+
+.badge-icon {
+  font-size: 12px;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.badge-text {
+  text-shadow: 0 0 8px currentColor;
+}
+
+@keyframes boy-bob {
+  0%, 100% {
+    transform: translateX(-14px) translateY(0);
+  }
+  50% {
+    transform: translateX(-14px) translateY(-5px);
+  }
+}
+
+@keyframes girl-bob {
+  0%, 100% {
+    transform: translateX(14px) translateY(0);
+  }
+  50% {
+    transform: translateX(14px) translateY(-5px);
+  }
+}
+
+.scene-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  font-family: var(--font-retro);
+  letter-spacing: 1px;
+  transition: opacity 0.3s;
+}
+
+/* Tag cặp đôi trong header bài hát */
+.couple-tag {
+  color: var(--accent-pink);
+  font-weight: 600;
+  font-size: 12px;
+  background: rgba(244, 114, 182, 0.12);
+  border: 1px solid rgba(244, 114, 182, 0.3);
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+/* Khung Karaoke Console */
+.karaoke-console {
+  padding: 16px 18px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-meta {
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 10px;
+}
+
+.song-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  text-shadow: 0 0 12px rgba(79, 163, 252, 0.3);
+}
+
+.artist-sub {
+  font-size: 13px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.artist-sub .separator {
+  color: #475569;
+}
+
+.mode-badge {
+  color: #cbd5e1;
+  font-family: var(--font-code);
+  font-size: 12px;
+}
+
+/* Lời bài hát Karaoke */
+.lyrics-view {
+  min-height: 165px;
+  max-height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 4px 0;
+  overflow: hidden;
+}
+
+.song-ending-message {
+  margin: -2px 16px 10px;
+  color: var(--accent-pink);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(244, 114, 182, 0.45);
+}
+
+.lyric-line {
+  font-size: 13.5px;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lyric-line.instrumental {
+  justify-content: center;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.lyric-line .line-num {
+  color: #475569;
+  font-size: 12px;
+  min-width: 22px;
+  text-align: right;
+  font-family: var(--font-code);
+}
+
+.lyric-line .line-text {
+  font-weight: 500;
+}
+
+/* Trạng thái các câu hát */
+.lyric-line.past {
+  color: var(--accent-green);
+  opacity: 0.85;
+}
+
+.lyric-line.past .line-num {
+  color: #2e8b45;
+}
+
+.lyric-line.past .check-mark {
+  color: var(--accent-green);
+  font-weight: bold;
+  margin-left: 6px;
+  display: inline-block;
+  animation: pop-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lyric-line.active {
+  color: #ffffff;
+  font-size: 14.5px;
+  font-weight: 700;
+  transform: translateX(4px);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.lyric-line.active .line-num {
+  color: var(--accent-blue);
+  font-weight: bold;
+}
+
+.lyric-line.active .typed-text {
+  color: var(--accent-blue);
+}
+
+.lyric-line.active .current-word {
+  color: #ffffff;
+  background: rgba(56, 189, 248, 0.2);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.lyric-line.future {
+  color: #475569;
+  opacity: 0.6;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background-color: var(--cursor-color);
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: blink 0.8s infinite;
+  box-shadow: 0 0 8px var(--cursor-color);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Console Footer & Progress */
+.console-footer {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.progress-container {
+  width: 100%;
+  height: 4px;
+  background: #1c2230;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38bdf8, #f472b6);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: #8b949e;
+  margin-bottom: 12px;
+}
+
+.time-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.music-icon {
+  color: var(--accent-blue);
+  font-size: 13px;
+}
+
+.shortcut-tip {
+  font-size: 11px;
+}
+
+.status-on {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.status-off {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.offset-calib {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.calib-label {
+  color: #64748b;
+  font-size: 10px;
+}
+
+.calib-btn {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  font-family: var(--font-code);
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.calib-btn:hover {
+  background: #334155;
+  color: #38bdf8;
+  border-color: #38bdf8;
+}
+
+.offset-num {
+  font-family: var(--font-code);
+  font-weight: bold;
+  color: #38bdf8;
+  min-width: 28px;
+  text-align: center;
+  font-size: 10px;
+}
+
+/* Thông báo trợ giúp phát audio nếu gặp lỗi */
+.audio-notice {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px dashed rgba(239, 68, 68, 0.35);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: #fca5a5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  animation: pop-in 0.3s ease;
+}
+
+.audio-notice.success {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #86efac;
+}
+
+.notice-icon {
+  font-size: 14px;
+}
+
+.notice-text {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.notice-btn {
+  background: #3b82f6;
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 10.5px;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.notice-btn:hover {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+/* Bảng nút điều khiển */
+.controls-row {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  background: #192130;
+  border: 1px solid #2d3748;
+  color: #cbd5e1;
+  font-family: var(--font-code);
+  font-size: 11.5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.action-btn:hover {
+  background: #242f44;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+.action-btn.primary {
+  background: #1d4ed8;
+  border-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.3);
+}
+
+.action-btn.primary:hover {
+  background: #2563eb;
+  box-shadow: 0 0 18px rgba(37, 99, 235, 0.5);
+}
+
+.action-btn.heart-btn {
+  background: rgba(244, 114, 182, 0.15);
+  border-color: rgba(244, 114, 182, 0.4);
+  color: #f472b6;
+}
+
+.action-btn.heart-btn:hover {
+  background: rgba(244, 114, 182, 0.3);
+  border-color: #f472b6;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(244, 114, 182, 0.4);
+}
+
+/* Footer chân trang */
+.player-footer {
+  padding: 8px 16px;
+  background: #0d1117;
+  border-top: 1px solid #1a2232;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10.5px;
+  color: #475569;
+}
+
+.love-tag {
+  letter-spacing: 0.5px;
+}
+
+.love-counter {
+  color: var(--accent-pink);
+  font-weight: 500;
+}
+
+/* Floating Pixel Hearts */
+.floating-heart {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  animation: float-up 1.6s forwards cubic-bezier(0.1, 0.7, 0.4, 1);
+  font-size: 16px;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.6) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-40px) scale(1.2) rotate(15deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(0.8) rotate(-15deg);
+  }
+}
+
+/* Modal Lá Thư Tình Bí Mật */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.letter-box {
+  background: #141a24;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(244, 114, 182, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-backdrop.active .letter-box {
+  transform: scale(1);
+}
+
+.letter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #0f141d;
+  border-bottom: 1px solid #1e293b;
+}
+
+.letter-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-pink);
+  letter-spacing: 1px;
+}
+
+.close-modal {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  color: #fff;
+}
+
+.letter-body {
+  padding: 20px 22px;
+  font-family: var(--font-code);
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #e2e8f0;
+}
+
+.letter-greeting {
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+}
+
+.letter-text {
+  color: #cbd5e1;
+}
+
+.letter-signature {
+  margin-top: 18px;
+  text-align: right;
+  font-style: italic;
+  color: var(--accent-pink);
+}
+
+.letter-footer {
+  padding: 12px 18px;
+  background: #0d1219;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 440px) {
+  body {
+    padding: 0;
+  }
+  .player-wrapper {
+    border-radius: 0;
+    min-height: 100vh;
+    border: none;
+  }
+}
+

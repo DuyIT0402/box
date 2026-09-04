@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gói Con Tim Làm Quà 💖 Pixel Karaoke</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="crt-overlay"></div>
+
+  <!-- Container mô phỏng cửa sổ terminal / điện thoại -->
+  <main class="player-wrapper">
+    <!-- Thanh tiêu đề cửa sổ terminal -->
+    <header class="terminal-header">
+      <div class="window-controls">
+        <span class="btn-dot close"></span>
+        <span class="btn-dot minimize"></span>
+        <span class="btn-dot maximize"></span>
+      </div>
+      <div class="terminal-title">~/love/player.exe — karaoke</div>
+      <div class="header-actions">
+        <button id="btn-sound-toggle" class="icon-btn" title="Bật/Tắt âm thanh">🔊</button>
+        <button id="btn-letter" class="icon-btn highlight" title="Mở thư bí mật">💌</button>
+      </div>
+    </header>
+
+    <!-- Khung Pixel Art Canvas (Cảnh đêm 2 nhân vật) -->
+    <section class="scene-container">
+      <canvas id="pixel-canvas" width="380" height="230"></canvas>
+      <!-- Bảng tên Duy & Thẻo trên đầu 2 nhân vật -->
+      <div class="characters-nametags">
+        <div class="name-badge boy-badge" title="Duy">
+          <span class="badge-icon">💙</span>
+          <span class="badge-text">Duy</span>
+        </div>
+        <div class="name-badge girl-badge" title="Thẻo">
+          <span class="badge-text">Thẻo</span>
+          <span class="badge-icon">💖</span>
+        </div>
+      </div>
+      <div class="heart-spawn-area" id="heart-area"></div>
+      <div class="scene-hint">Chạm vào Duy & Thẻo để bắn tim 💕</div>
+    </section>
+
+    <!-- Khung thông tin bài hát & Lời karaoke -->
+    <section class="karaoke-console">
+      <div class="song-meta">
+        <h1 class="song-title" id="song-title">Gói Con Tim Làm Quà</h1>
+        <p class="artist-sub">
+          <span id="artist-name">Nguyễn Hùng (Bò Sữa Bay OST)</span> 
+          <span class="separator">·</span> 
+          <span class="mode-badge" id="mode-badge">karaoke mode</span>
+          <span class="separator">·</span>
+          <span class="couple-tag">Duy 💖 Thẻo</span>
+        </p>
+      </div>
+
+      <!-- Vùng cuộn lời bài hát -->
+      <div class="lyrics-view" id="lyrics-view">
+        <!-- Các dòng lyric sẽ được render động bằng JS -->
+      </div>
+      <p class="song-ending-message" id="song-ending-message" hidden>Duy yêu Thẻo nhiều lắm, trọn đời bên nhau! 💖</p>
+
+      <!-- Thanh trạng thái bài hát & thời gian -->
+      <div class="console-footer">
+        <div class="progress-container" id="progress-bar-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="status-row">
+          <div class="time-status">
+            <span class="music-icon">♪</span>
+            <span id="current-time">0:00</span> / <span id="duration-time">4:03</span>
+          </div>
+          <span class="sync-label">● Lời tự đồng bộ theo nhạc</span>
+        </div>
+
+        <!-- Thông báo hỗ trợ nếu trình duyệt chặn file âm thanh tiếng Việt -->
+        <div class="audio-notice" id="audio-notice" style="display: none;">
+          <span class="notice-icon">⚠️</span>
+          <span class="notice-text" id="notice-text">Trình duyệt chặn file đường dẫn tiếng Việt. Hãy kéo thả file <b>.mp3</b> vào đây hoặc</span>
+          <label for="manual-audio-input" class="notice-btn">📁 Chọn file</label>
+          <input type="file" id="manual-audio-input" accept="audio/*" style="display:none;">
+        </div>
+
+        <!-- Bảng điều khiển nút bấm phát nhạc -->
+        <div class="controls-row">
+          <button id="btn-play" class="action-btn primary">
+            <span id="play-icon">▶</span> <span id="play-text">Phát nhạc</span>
+          </button>
+          <button id="btn-restart" class="action-btn" title="Phát lại từ đầu">↺ Lại từ đầu</button>
+          <button id="btn-quick-heart" class="action-btn heart-btn" title="Bắn tim cho Thẻo">💕 Bắn tim</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bộ đếm ngày yêu / Lời nhắn chân trang -->
+    <footer class="player-footer">
+      <span class="love-tag">Made with love for Duy & Thẻo</span>
+      <span class="love-counter" id="love-counter">💖 Từ 20/01/2026</span>
+    </footer>
+  </main>
+
+  <!-- Popup Thư tình bí mật (Secret Love Letter Modal) -->
+  <div class="modal-backdrop" id="letter-modal">
+    <div class="letter-box">
+      <div class="letter-header">
+        <span class="letter-title">💌 BỨC THƯ TÌNH BÍ MẬT</span>
+        <button class="close-modal" id="btn-close-letter">&times;</button>
+      </div>
+      <div class="letter-body">
+        <p class="letter-greeting">Gửi Thẻo — điều tuyệt vời nhất của anh,</p>
+        <div class="letter-text" id="typewriter-letter">
+          Cảm ơn em đã bước vào cuộc sống của anh và mang đến biết bao ấm áp, nụ cười. 
+          Giống như hai nhân vật pixel nhỏ bé kia ngồi bên nhau ngắm cả dải ngân hà, 
+          chỉ cần có em bên cạnh, mọi khoảnh khắc bình dị đều trở nên rực rỡ và ý nghĩa.
+          <br><br>
+          "Xin em về đây, tôi giữ em bên trong vòng tay<br>
+          Đâu sợ mai cách rời, có em tôi sẽ nâng niu suốt đời!"
+          <br><br>
+          Yêu em thật nhiều, công chúa nhỏ của anh! 💖
+        </div>
+        <div class="letter-signature">— Duy yêu Thẻo rất nhiều —</div>
+      </div>
+      <div class="letter-footer">
+        <button class="action-btn primary" id="btn-heart-burst">Bắn tim gửi Thẻo 💕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio element phát trực tiếp file bài hát trong thư mục nhac -->
+  <audio id="bg-audio" preload="auto" src="nhac/song.mp3">
+    <source src="nhac/song.mp3" type="audio/mpeg">
+    <source src="nhac/song.mp3.mp3" type="audio/mpeg">
+    <source src="song.mp3" type="audio/mpeg">
+    <source src="./nhac/song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
