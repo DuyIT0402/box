@@ -271,9 +271,8 @@ body {
 .name-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 3px 9px;
-  border-radius: 2px;
+  padding: 2px 4px;
+  border-radius: 0;
   font-family: var(--font-pixel);
   font-size: 8px;
   font-weight: 700;
@@ -281,7 +280,7 @@ body {
   pointer-events: auto;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.65), 0 0 12px rgba(56, 189, 248, 0.25);
+  box-shadow: none;
   user-select: none;
 }
 
@@ -290,19 +289,19 @@ body {
 }
 
 .boy-badge {
-  background: rgba(15, 23, 42, 0.85);
-  border: 1.5px solid #38bdf8;
+  background: transparent;
+  border: none;
   color: #7dd3fc;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.45);
+  text-shadow: 2px 2px 0 #082f49, 0 0 8px rgba(56, 189, 248, 0.75);
   animation: boy-bob 2.4s ease-in-out infinite;
   transform: translateX(-14px);
 }
 
 .girl-badge {
-  background: rgba(30, 15, 28, 0.85);
-  border: 1.5px solid #f472b6;
+  background: transparent;
+  border: none;
   color: #f9a8d4;
-  box-shadow: 0 0 12px rgba(244, 114, 182, 0.45);
+  text-shadow: 2px 2px 0 #500724, 0 0 8px rgba(244, 114, 182, 0.75);
   animation: girl-bob 2.4s ease-in-out infinite 0.3s;
   transform: translateX(14px);
 }
@@ -927,7 +926,7 @@ body {
 
   .name-badge {
     font-size: 7px;
-    padding: 4px 6px;
+    padding: 2px 4px;
   }
 
   .dog-response {
