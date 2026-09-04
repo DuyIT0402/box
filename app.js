@@ -243,32 +243,16 @@ function drawPixelArtScene() {
   const dogY = baseY - 14 + Math.sin(animTick * 0.05 + 1) * 0.5;
   const tailWave = Math.sin(animTick * 0.12) > 0 ? 1 : 0;
   const walkingStep = Math.floor(animTick / 6) % 2;
-  const dogPraise = ["Mực đẹp trai quá!", "Mực cute quá!", "Mực kute quá!", "Mực ngoan quá!", "Mực đáng yêu!", "Mực siêu cưng!", "Mực iu quá!", "Mực số 1 luôn!"];
-  const dogPraiseText = dogPraise[Math.floor(animTick / 45) % dogPraise.length];
   const dogReplyText = ["Dạ cảm ơn!", "Thank you!", "Iu anh chị!", "Mực vui quá!", "Cảm ơn ạ!", "Dạ iu!", "Mực biết rồi!", "Hihi cảm ơn!"][Math.floor(animTick / 90) % 8];
 
   // Câu đáp rõ ràng của Mực nằm trên đầu chú chó
-  ctx.font = "5px 'Fira Code', monospace";
   ctx.textAlign = "center";
   const replyWidth = ctx.measureText(dogReplyText).width + 7;
   ctx.fillStyle = "rgba(9, 13, 20, 0.96)";
   ctx.fillRect(dogX + 8 - replyWidth / 2, dogY - 27, replyWidth, 7);
-  ctx.strokeStyle = "#facc15";
-  ctx.strokeRect(dogX + 8 - replyWidth / 2, dogY - 27, replyWidth, 7);
   ctx.fillStyle = "#fff7b2";
   ctx.font = "5px 'Fira Code', monospace";
   ctx.fillText(dogReplyText, dogX + 8, dogY - 22);
-
-  // Những lời khen ngắn đổi liên tục ngay dưới câu đáp
-  ctx.font = "5px 'Fira Code', monospace";
-  const praiseWidth = ctx.measureText(dogPraiseText).width + 5;
-  ctx.fillStyle = "rgba(9, 13, 20, 0.9)";
-  ctx.fillRect(dogX + 8 - praiseWidth / 2, dogY - 20, praiseWidth, 7);
-  ctx.strokeStyle = "#38bdf8";
-  ctx.lineWidth = 0.8;
-  ctx.strokeRect(dogX + 8 - praiseWidth / 2, dogY - 20, praiseWidth, 7);
-  ctx.fillStyle = "#e0f2fe";
-  ctx.fillText(dogPraiseText, dogX + 8, dogY - 15);
 
   // Tên Mực
   ctx.fillStyle = "#d6b58a";
