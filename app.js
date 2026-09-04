@@ -245,10 +245,22 @@ function drawPixelArtScene() {
   const walkingStep = Math.floor(animTick / 6) % 2;
   const dogPraise = ["iu quá", "cute", "kute", "ngoan", "đáng iu", "bé ngoan", "siêu cưng", "mực mê quá", "hihi", "yêu mực", "wow", "gâu gâu"];
   const dogPraiseText = dogPraise[Math.floor(animTick / 45) % dogPraise.length];
+  const dogReplyText = ["Dạ cảm ơn!", "Thank you!", "Iu anh chị!", "Mực vui quá!", "Cảm ơn ạ!", "Dạ iu!", "Mực biết rồi!", "Hihi cảm ơn!"][Math.floor(animTick / 90) % 8];
 
-  // Những lời khen ngắn đổi liên tục trên đầu Mực
+  // Câu đáp rõ ràng của Mực nằm trên đầu chú chó
   ctx.font = "4px 'Fira Code', monospace";
   ctx.textAlign = "center";
+  const replyWidth = ctx.measureText(dogReplyText).width + 7;
+  ctx.fillStyle = "rgba(9, 13, 20, 0.96)";
+  ctx.fillRect(dogX + 8 - replyWidth / 2, dogY - 27, replyWidth, 7);
+  ctx.strokeStyle = "#facc15";
+  ctx.strokeRect(dogX + 8 - replyWidth / 2, dogY - 27, replyWidth, 7);
+  ctx.fillStyle = "#fff7b2";
+  ctx.font = "4px 'Press Start 2P', monospace";
+  ctx.fillText(dogReplyText, dogX + 8, dogY - 22);
+
+  // Những lời khen ngắn đổi liên tục ngay dưới câu đáp
+  ctx.font = "4px 'Fira Code', monospace";
   const praiseWidth = ctx.measureText(dogPraiseText).width + 5;
   ctx.fillStyle = "rgba(9, 13, 20, 0.9)";
   ctx.fillRect(dogX + 8 - praiseWidth / 2, dogY - 19, praiseWidth, 6);
@@ -322,7 +334,6 @@ const heartArea = document.getElementById("heart-area");
 const sceneContainer = document.querySelector(".scene-container");
 const boyPraise = document.getElementById("boy-praise");
 const girlPraise = document.getElementById("girl-praise");
-const dogResponse = document.getElementById("dog-response");
 
 const praiseMessages = [
   ["Mực đáng yêu quá!", "Mực kute quá!"],
@@ -331,25 +342,11 @@ const praiseMessages = [
   ["Mực là em bé đáng yêu nhất!", "Mực cưng xỉu luôn!"],
   ["Mực giỏi quá nha!", "Mực làm cả nhà vui quá!"]
 ];
-const dogResponses = [
-  "Mực cảm ơn chị Thảo, anh Duy nha! 💖",
-  "Mực yêu chị Thảo và anh Duy nhất! 🐶",
-  "Mực sẽ ngoan và chạy thật vui! ✨",
-  "Mực nghe lời khen rồi, vui quá! 💕",
-  "Dạ Mực cảm ơn anh Duy, chị Thảo ạ!",
-  "Thank you anh Duy, chị Thảo! 💖",
-  "Dạ yêu hai người lắm! 🐶",
-  "Mực cảm ơn nhiều nhiều nha! ✨",
-  "Thank you, Mực vui quá trời! 💕",
-  "Dạ Mực biết rồi ạ, iu anh chị!"
-];
-
 let praiseIndex = 0;
 setInterval(() => {
   praiseIndex = (praiseIndex + 1) % praiseMessages.length;
   if (boyPraise) boyPraise.textContent = praiseMessages[praiseIndex][0];
   if (girlPraise) girlPraise.textContent = praiseMessages[praiseIndex][1];
-  if (dogResponse) dogResponse.textContent = dogResponses[praiseIndex % dogResponses.length];
 }, 8000);
 
 sceneContainer.addEventListener("click", (e) => {
