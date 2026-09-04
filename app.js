@@ -243,6 +243,17 @@ function drawPixelArtScene() {
   const dogY = baseY - 14 + Math.sin(animTick * 0.05 + 1) * 0.5;
   const tailWave = Math.sin(animTick * 0.12) > 0 ? 1 : 0;
   const walkingStep = Math.floor(animTick / 6) % 2;
+  const dogPraise = ["iu quá", "cute", "kute", "ngoan", "đáng iu", "bé ngoan", "siêu cưng", "mực mê quá", "hihi", "yêu mực", "wow", "gâu gâu"];
+  const dogPraiseText = dogPraise[Math.floor(animTick / 45) % dogPraise.length];
+
+  // Những lời khen ngắn đổi liên tục trên đầu Mực
+  ctx.font = "4px 'Fira Code', monospace";
+  ctx.textAlign = "center";
+  const praiseWidth = ctx.measureText(dogPraiseText).width + 5;
+  ctx.fillStyle = "rgba(9, 13, 20, 0.9)";
+  ctx.fillRect(dogX + 8 - praiseWidth / 2, dogY - 19, praiseWidth, 6);
+  ctx.fillStyle = "#facc15";
+  ctx.fillText(dogPraiseText, dogX + 8, dogY - 15);
 
   // Tên Mực
   ctx.fillStyle = "#d6b58a";
@@ -324,7 +335,13 @@ const dogResponses = [
   "Mực cảm ơn chị Thẻo, anh Duy nha! 💖",
   "Mực yêu chị Thẻo và anh Duy nhất! 🐶",
   "Mực sẽ ngoan và chạy thật vui! ✨",
-  "Mực nghe lời khen rồi, vui quá! 💕"
+  "Mực nghe lời khen rồi, vui quá! 💕",
+  "Dạ Mực cảm ơn anh Duy, chị Thẻo ạ!",
+  "Thank you anh Duy, chị Thẻo! 💖",
+  "Dạ yêu hai người lắm! 🐶",
+  "Mực cảm ơn nhiều nhiều nha! ✨",
+  "Thank you, Mực vui quá trời! 💕",
+  "Dạ Mực biết rồi ạ, iu anh chị!"
 ];
 
 let praiseIndex = 0;
