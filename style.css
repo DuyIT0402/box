@@ -791,12 +791,158 @@ body {
 /* Responsive cho màn hình nhỏ */
 @media (max-width: 440px) {
   body {
-    padding: 0;
+    align-items: flex-start;
+    padding: 10px;
+    min-height: 100svh;
   }
+
   .player-wrapper {
-    border-radius: 0;
-    min-height: 100vh;
-    border: none;
+    min-height: calc(100svh - 20px);
+    border-radius: 16px;
+  }
+
+  .terminal-header {
+    padding: 12px 13px;
+  }
+
+  .terminal-title {
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 10px;
+  }
+
+  .icon-btn {
+    min-width: 38px;
+    min-height: 34px;
+    font-size: 17px;
+  }
+
+  .icon-btn.highlight {
+    animation: none;
+  }
+
+  .scene-container {
+    height: 205px;
+  }
+
+  .characters-nametags {
+    top: 82px;
+  }
+
+  .scene-hint {
+    right: 10px;
+    bottom: 9px;
+    font-size: 9px;
+  }
+
+  .karaoke-console {
+    padding: 17px 13px 14px;
+  }
+
+  .song-title {
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  .artist-sub {
+    display: block;
+    font-size: 10px;
+    line-height: 1.7;
+  }
+
+  .lyrics-view {
+    min-height: 170px;
+    max-height: 185px;
+    gap: 8px;
+  }
+
+  .lyric-line {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .status-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 13px;
+  }
+
+  .sync-label {
+    width: 100%;
+    font-size: 10px;
+  }
+
+  .controls-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .action-btn {
+    min-height: 44px;
+    padding: 10px 8px;
+    font-size: 11px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .action-btn.primary {
+    grid-column: 1 / -1;
+  }
+
+  .icon-btn,
+  .name-badge,
+  .close-modal,
+  .notice-btn {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .player-footer {
+    flex-wrap: wrap;
+    gap: 5px 10px;
+    padding: 10px 13px;
+    line-height: 1.4;
+  }
+
+  .love-counter {
+    margin-left: auto;
+  }
+
+  .modal-backdrop {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 14px 10px;
+  }
+
+  .letter-box {
+    margin: auto 0;
+    max-height: calc(100svh - 28px);
+    overflow-y: auto;
+  }
+
+  .letter-header {
+    padding: 13px 14px;
+  }
+
+  .letter-title {
+    font-size: 10px;
+  }
+
+  .letter-body {
+    padding: 17px 15px;
+    font-size: 12px;
+  }
+
+  .letter-footer {
+    padding: 10px 14px;
+  }
+
+  .letter-footer .action-btn {
+    width: 100%;
   }
 }
 
