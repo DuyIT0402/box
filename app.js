@@ -484,7 +484,7 @@ function renderLyrics(rawTime) {
 }
 
 // Cho phép người dùng bấm trực tiếp vào câu hát bất kỳ để tua nhạc đến câu đó
-lyricsView.addEventListener("click", (e) => {
+lyricsView.addEventListener("pointerup", (e) => {
   const lineEl = e.target.closest(".lyric-line");
   if (lineEl && lineEl.dataset.start !== undefined) {
     const targetStart = parseFloat(lineEl.dataset.start);
