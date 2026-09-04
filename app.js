@@ -243,17 +243,6 @@ function drawPixelArtScene() {
   const dogY = baseY - 14 + Math.sin(animTick * 0.05 + 1) * 0.5;
   const tailWave = Math.sin(animTick * 0.12) > 0 ? 1 : 0;
   const walkingStep = Math.floor(animTick / 6) % 2;
-  const dogTags = ["#MựcĐángYêu", "#MựcCute", "#MựcKute", "#TeamMực"];
-  const dogTag = dogTags[Math.floor(animTick / 90) % dogTags.length];
-
-  // Hashtag đổi nhẹ phía trên đầu Mực
-  ctx.font = "4px 'Fira Code', monospace";
-  ctx.textAlign = "center";
-  const tagWidth = ctx.measureText(dogTag).width + 5;
-  ctx.fillStyle = "rgba(9, 13, 20, 0.85)";
-  ctx.fillRect(dogX + 8 - tagWidth / 2, dogY - 19, tagWidth, 6);
-  ctx.fillStyle = "#facc15";
-  ctx.fillText(dogTag, dogX + 8, dogY - 15);
 
   // Tên Mực
   ctx.fillStyle = "#d6b58a";
