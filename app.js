@@ -84,6 +84,8 @@ function spawnShootingStar() {
 let animTick = 0;
 let isBlinking = false;
 let blinkTimer = 0;
+let dogWalkX = 137;
+let dogDirection = 1;
 
 function drawPixelArtScene() {
   ctx.clearRect(0, 0, V_WIDTH, V_HEIGHT);
@@ -231,9 +233,16 @@ function drawPixelArtScene() {
   ctx.fillRect(girlX + 17, girlY + 16, 4, 7);
 
   // --- MỰC (Chú chó pixel nhỏ ngồi bên cạnh Thẻo) ---
-  const dogX = 137;
+  if (animTick % 4 === 0) {
+    dogWalkX += dogDirection * 0.7;
+    if (dogWalkX >= 164 || dogWalkX <= 120) {
+      dogDirection *= -1;
+    }
+  }
+  const dogX = dogWalkX;
   const dogY = baseY - 14 + Math.sin(animTick * 0.05 + 1) * 0.5;
   const tailWave = Math.sin(animTick * 0.12) > 0 ? 1 : 0;
+  const walkingStep = Math.floor(animTick / 6) % 2;
 
   // Tên Mực
   ctx.fillStyle = "#d6b58a";
@@ -259,8 +268,8 @@ function drawPixelArtScene() {
 
   // Chân và đuôi vẫy nhẹ
   ctx.fillStyle = "#6f472f";
-  ctx.fillRect(dogX + 5, dogY + 13, 4, 7);
-  ctx.fillRect(dogX + 16, dogY + 13, 4, 7);
+  ctx.fillRect(dogX + 5, dogY + 13 + (walkingStep ? 1 : 0), 4, 7);
+  ctx.fillRect(dogX + 16, dogY + 13 + (walkingStep ? 0 : 1), 4, 7);
   ctx.fillRect(dogX + 21, dogY + 2, 5, 3);
   ctx.fillRect(dogX + 24, dogY - 1 + tailWave, 3, 4);
 
