@@ -230,6 +230,40 @@ function drawPixelArtScene() {
   ctx.fillRect(girlX + 5, girlY + 16, 4, 7);
   ctx.fillRect(girlX + 17, girlY + 16, 4, 7);
 
+  // --- MỰC (Chú chó pixel nhỏ ngồi bên cạnh Thẻo) ---
+  const dogX = 137;
+  const dogY = baseY - 14 + Math.sin(animTick * 0.05 + 1) * 0.5;
+  const tailWave = Math.sin(animTick * 0.12) > 0 ? 1 : 0;
+
+  // Tên Mực
+  ctx.fillStyle = "#d6b58a";
+  ctx.font = "6px 'Press Start 2P', monospace";
+  ctx.textAlign = "center";
+  ctx.fillText("MỰC", dogX + 8, dogY - 10);
+
+  // Tai cụp và thân chó
+  ctx.fillStyle = "#5b3a29";
+  ctx.fillRect(dogX, dogY - 3, 5, 9);
+  ctx.fillRect(dogX + 18, dogY - 3, 5, 9);
+  ctx.fillStyle = "#8b5e3c";
+  ctx.fillRect(dogX + 3, dogY, 18, 13);
+  ctx.fillRect(dogX + 1, dogY + 5, 22, 8);
+
+  // Mặt, mắt và mũi Mực
+  ctx.fillStyle = "#17131a";
+  ctx.fillRect(dogX + 6, dogY + 4, 3, 3);
+  ctx.fillRect(dogX + 15, dogY + 4, 3, 3);
+  ctx.fillRect(dogX + 10, dogY + 8, 5, 3);
+  ctx.fillStyle = "#f4b4a5";
+  ctx.fillRect(dogX + 11, dogY + 11, 3, 2);
+
+  // Chân và đuôi vẫy nhẹ
+  ctx.fillStyle = "#6f472f";
+  ctx.fillRect(dogX + 5, dogY + 13, 4, 7);
+  ctx.fillRect(dogX + 16, dogY + 13, 4, 7);
+  ctx.fillRect(dogX + 21, dogY + 2, 5, 3);
+  ctx.fillRect(dogX + 24, dogY - 1 + tailWave, 3, 4);
+
   // Trái tim đập nhẹ ở giữa hai bạn
   if (Math.floor(animTick / 30) % 2 === 0) {
     drawPixelHeart(centerX + 6, baseY - 29, "#f43f5e");
