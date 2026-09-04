@@ -273,15 +273,15 @@ body {
   align-items: center;
   gap: 5px;
   padding: 3px 9px;
-  border-radius: 6px;
-  font-family: var(--font-code);
-  font-size: 11px;
+  border-radius: 2px;
+  font-family: var(--font-pixel);
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
   pointer-events: auto;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.65), 0 0 12px rgba(56, 189, 248, 0.25);
   user-select: none;
 }
 
@@ -314,6 +314,10 @@ body {
 
 .badge-text {
   text-shadow: 0 0 8px currentColor;
+}
+
+.badge-icon {
+  image-rendering: pixelated;
 }
 
 @keyframes boy-bob {
@@ -919,6 +923,11 @@ body {
   .praise-bubble {
     font-size: 7px;
     padding: 3px 4px;
+  }
+
+  .name-badge {
+    font-size: 7px;
+    padding: 4px 6px;
   }
 
   .dog-response {
