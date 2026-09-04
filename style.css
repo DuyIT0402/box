@@ -263,6 +263,10 @@ body {
   background: transparent;
   border: none;
   color: #f9a8d4;
+  font-family: var(--font-code);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   text-shadow: 2px 2px 0 #500724, 0 0 8px rgba(244, 114, 182, 0.75);
   animation: girl-bob 2.4s ease-in-out infinite 0.3s;
   transform: translateX(14px);
@@ -889,6 +893,10 @@ body {
   .name-badge {
     font-size: 7px;
     padding: 2px 4px;
+  }
+
+  .girl-badge {
+    font-size: 10px;
   }
 
   .scene-hint {
